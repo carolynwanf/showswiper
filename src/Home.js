@@ -14,6 +14,8 @@ const Home = () => {
     const handleRoomNameChange = (e) => {
       setRoomName(e.target.value);
     }
+
+    //send roomId to server onClick of link
   
     return (
         <div className = "home-page">
