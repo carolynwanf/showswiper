@@ -19,7 +19,7 @@ for (let i=1; i < 6; i++) {
     });
     
     req.headers({
-        "x-rapidapi-key": ,
+        "x-rapidapi-key": "",
         "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
         "useQueryString": true
     });
