@@ -1,37 +1,72 @@
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
+// const axios = require('axios');
 const fs = require('fs')
 
-var dataToWrite = []
-const pulls = 2
 
-async function ugh() {
-    for (let i=1; i < pulls+1;i++) {
+// pull data from api
+// var dataToWrite = []
+// const pulls = 2
 
-        // execution pauses here until data is retrieved
-        await fetch("https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get%3Anew%5B%5D-!1950%2C2021-!0%2C5-!8%2C10-!0-!Any-!Any-!Any-!gt100-!%7Bdownloadable%7D&t=ns&cl=all&st=adv&ob=Title&p="+JSON.stringify(i)+"&sa=and", {
-            "method": "GET",
-            "headers": {
-            "x-rapidapi-key": "",
-            "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com"
-        }
-    })
-    .then(response => {
-        console.log(response);
-        dataToWrite = dataToWrite.concat(response)
+// async function ugh() {
+//     for (let i=1; i < pulls+1;i++) {
 
-    })
-    .catch(err => {
-        console.error(err);
-    });
+//         const offset = JSON.stringify(i * 100 - 100)
+
+//         // execution pauses here until data is retrieved
+//         const options = {
+//             method: 'GET',
+//             url: 'https://unogsng.p.rapidapi.com/search',
+//             params: {
+//               start_year: '1972',
+//               orderby: 'rating',
+//               audiosubtitle_andor: 'and',
+//               start_rating: '7',
+//               limit: '100',
+//               end_rating: '10',
+//               subtitle: 'english',
+//               countrylist: '78',
+//               country_andorunique: 'unique',
+//               offset: offset,
+//               end_year: '2021'
+//             },
+//             headers: {
+//               'x-rapidapi-key': '',
+//               'x-rapidapi-host': 'unogsng.p.rapidapi.com'
+//             }
+//           };
+          
+//           await axios.request(options).then(function (response) {
+//               console.log(response.data);
+//               console.log(typeof response.data)
+              
+//               dataToWrite = dataToWrite.concat(response.data["results"])
+//           }).catch(function (error) {
+//               console.error(error);
+//           });
+//     }
+
+//     fs.writeFileSync('./databasePromises.json',JSON.stringify(dataToWrite), function(err, result) {
+//         console.log(result, err)
+//         if(err) throw new Error(result.error);
+//     })
+// }
+
+// ugh()
+
+// deletes uneccesary catefories (doesn't write back yet)
+const database =  JSON.parse(fs.readFileSync('./databasePromises.json', 
+{encoding:'utf8', flag:'r'}))
+
+properties = ['top250','top250tv','clist','avgrating','titledate','runtime','img','year','id']
+
+for (let i=0; i<database.length;i++) {
+    for (let property of properties) {
+        delete database[i][property]
     }
-
-    fs.writeFileSync('./databasePromises.json',JSON.stringify(dataToWrite), function(err, result) {
-        console.log(result, err)
-        if(err) throw new Error(result.error);
-    })
 }
 
-ugh()
+
+console.log(database)
 
 
 
