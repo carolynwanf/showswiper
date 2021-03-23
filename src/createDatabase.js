@@ -1,6 +1,9 @@
 var unirest = require("unirest");
 const fetch = require("node-fetch");
 var fs = require('fs');
+
+const {netflix, omdb} = require('./apikeys')
+
 // var dataToWrite = [];
 // var counter = 0;
 
@@ -27,7 +30,7 @@ var fs = require('fs');
 //    // requests are definitely both going out, however, currently only the first one is coming back and being concatted "pull" number of times
     
 //     req.headers({
-//         "x-rapidapi-key": "5ce2fa4156mshb085f498a38e5a0p126d5fjsna55d380ca794",
+//         "x-rapidapi-key": netflix,
 //         "x-rapidapi-host": "unogsng.p.rapidapi.com",
 //         "useQueryString": true
 //     });
@@ -60,7 +63,7 @@ var fs = require('fs');
 var fetchPromise = fetch("https://unogsng.p.rapidapi.com/search?start_year=1972&orderby=rating&audiosubtitle_andor=and&limit=100&subtitle=english&countrylist=78%2C46&audio=english&country_andorunique=unique&offset=0&end_year=2019", {
 	"method": "GET",
 	"headers": {
-		"x-rapidapi-key": "",
+		"x-rapidapi-key": netflix,
 		"x-rapidapi-host": "unogsng.p.rapidapi.com"
 	}
 }).catch(err => {
